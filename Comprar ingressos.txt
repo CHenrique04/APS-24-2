@@ -1,0 +1,18 @@
+@startuml
+
+skinparam Style strictuml
+
+mainframe "Diagrama de Sequencia - Comprar Ingresso"
+
+actor Usuario as Foo
+participant TelaCompra as Foo2
+participant "novaCompra:Compra" as Foo3
+participant novoIngresso as Foo4
+
+alt 
+Foo -> Foo2 : InserirDadosCompra()
+Foo2 -> Foo : confirmarDados()
+Foo -> Foo2 : clickConfirmar()
+Foo2 -> Foo3 : criarCompra()
+Foo3 -> Foo3 : validarCompra()
+@enduml
