@@ -1,0 +1,64 @@
+@startuml
+
+title Sistema de gerenciamento de Eventos Universitários
+
+skinparam Style strictuml
+hide empty members
+
+mainframe "Gerenciamento de Eventos Universitários"
+
+class Evento{
+nomeEvento : string
+data : date
+localizacao : string
+categoria : evento
+organizador: string
+certificado : bool
+usuarioInscrito : bool
+capacidadeMax : int
+encerrado: bool
+}
+
+class Busca{
+data : date
+nomeEvento : string
+
+}
+
+class InscricaoUsuarioParaEvento{
+nomeEvento : string
+nomeUsuario : string
+emailUsuario : string
+contatoUsuario : int
+}
+
+class CadastroUsuario{
+nomeUsuario : string
+ehAluno: bool
+endereco : string
+contatoUsuario : int
+numMatricula: int
+}
+
+class Usuario{
+nome : string
+aluno : bool
+ingresso : bool
+numeroIngresso : int
+}
+
+class Certificado{
+nomeEvento : string
+nomeUsuario : string
+data : date
+horasCertificados : int
+}
+
+Evento "0..*" -- "1" Busca
+CadastroUsuario <|-- Usuario
+Usuario "1" --|> "1..*" Busca
+InscricaoUsuarioParaEvento "1" --|> "1" Usuario
+Evento "1..*" --|> "1" Certificado
+Certificado "0..*" --|> "1" Usuario
+
+@enduml
