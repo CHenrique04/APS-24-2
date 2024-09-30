@@ -6,13 +6,23 @@ mainframe "Diagrama de Sequencia - Comprar Ingresso"
 
 actor Usuario as Foo
 participant TelaCompra as Foo2
-participant "novaCompra:Compra" as Foo3
-participant novoIngresso as Foo4
-
-alt 
+  
 Foo -> Foo2 : InserirDadosCompra()
-Foo2 -> Foo : confirmarDados()
+Foo2 --> Foo : confirmarDados()
 Foo -> Foo2 : clickConfirmar()
+create "novaCompra:Compra" as Foo3
 Foo2 -> Foo3 : criarCompra()
 Foo3 -> Foo3 : validarCompra()
+
+alt validarCompra = True
+  loop para cada ingresso da compra
+    create "novoIngresso:Ingresso" as Foo4
+    Foo3 -> Foo4 : criarIngresso()
+  end
+else validarCompra = False
+    Foo3 -> Foo3
+    destroy Foo3
+    Foo3 --> Foo2
+    Foo2 --> Foo : erroNaCompra()
+end
 @enduml
